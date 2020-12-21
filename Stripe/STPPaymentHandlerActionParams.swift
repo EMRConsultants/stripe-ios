@@ -8,11 +8,17 @@
 
 import Foundation
 
+#if canImport(Stripe3DS2)
 import Stripe3DS2
+#else
+public typealias STPThreeDSCustomizationSettings = NSObject
+#endif
 
 @available(iOSApplicationExtension, unavailable)
 internal protocol STPPaymentHandlerActionParams: AnyObject {
+  #if canImport(Stripe3DS2)
   var threeDS2Service: STDSThreeDS2Service? { get }
+  #endif
   var authenticationContext: STPAuthenticationContext { get }
   var apiClient: STPAPIClient { get }
   var threeDSCustomizationSettings: STPThreeDSCustomizationSettings { get }
@@ -39,6 +45,7 @@ internal class STPPaymentHandlerPaymentIntentActionParams: NSObject, STPPaymentH
     return paymentIntent?.stripeId
   }
 
+  #if canImport(Stripe3DS2)
   private var _threeDS2Service: STDSThreeDS2Service?
 
   var threeDS2Service: STDSThreeDS2Service? {
@@ -66,7 +73,8 @@ internal class STPPaymentHandlerPaymentIntentActionParams: NSObject, STPPaymentH
 
     return _threeDS2Service
   }
-
+  #endif
+  
   init(
     apiClient: STPAPIClient,
     authenticationContext: STPAuthenticationContext,
@@ -108,6 +116,7 @@ internal class STPPaymentHandlerSetupIntentActionParams: NSObject, STPPaymentHan
     return setupIntent?.stripeID
   }
 
+  #if canImport(Stripe3DS2)
   private var _threeDS2Service: STDSThreeDS2Service?
 
   var threeDS2Service: STDSThreeDS2Service? {
@@ -135,6 +144,7 @@ internal class STPPaymentHandlerSetupIntentActionParams: NSObject, STPPaymentHan
 
     return _threeDS2Service
   }
+  #endif
 
   init(
     apiClient: STPAPIClient,

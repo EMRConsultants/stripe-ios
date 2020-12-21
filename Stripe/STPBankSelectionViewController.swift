@@ -82,7 +82,7 @@ public class STPBankSelectionViewController: STPCoreTableViewController, UITable
     NotificationCenter.default.removeObserver(self)
   }
 
-  @objc func _refreshFPXStatus() {
+  func _refreshFPXStatus() {
     apiClient.retrieveFPXBankStatus(withCompletion: { bankStatusResponse, error in
       if error == nil && bankStatusResponse != nil {
         if let bankStatusResponse = bankStatusResponse {

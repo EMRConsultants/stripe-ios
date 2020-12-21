@@ -66,7 +66,7 @@ class BacsDebitExampleViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    @objc func didTapPayButton(sender: UIButton) {
+    func didTapPayButton(sender: UIButton) {
         inProgress = true
 
         /**
@@ -108,7 +108,7 @@ class BacsDebitExampleViewController: UIViewController {
         }, additionalParameters: nil)
     }
 
-    @objc func didTapSetupButton() {
+    func didTapSetupButton() {
         inProgress = true
 
         /**

@@ -32,7 +32,7 @@ class CardFieldViewController: UIViewController {
         navigationController?.navigationBar.stp_theme = theme
     }
 
-    @objc func done() {
+    func done() {
         dismiss(animated: true, completion: nil)
     }
 

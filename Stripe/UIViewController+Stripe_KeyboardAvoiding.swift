@@ -28,7 +28,7 @@ extension UIViewController {
     keyboardAvoiding.didMove(toParent: self)
   }
 
-  @objc func stp_keyboardDetectingViewController() -> STPKeyboardDetectingViewController? {
+  func stp_keyboardDetectingViewController() -> STPKeyboardDetectingViewController? {
     return
       (children as NSArray).filtered(
         using: NSPredicate(block: { viewController, _ in
@@ -74,7 +74,7 @@ class STPKeyboardDetectingViewController: UIViewController {
     self.view = view
   }
 
-  @objc func textFieldWillBeginEditing(_ notification: Notification) {
+  func textFieldWillBeginEditing(_ notification: Notification) {
     guard let textField = notification.object as? UITextField, let parentView = parent?.view, textField.isDescendant(of: parentView) else {
       return
     }
@@ -87,7 +87,7 @@ class STPKeyboardDetectingViewController: UIViewController {
     }
   }
 
-  @objc func keyboardWillChangeFrame(_ notification: Notification) {
+  func keyboardWillChangeFrame(_ notification: Notification) {
     // As of iOS 8, this all takes place inside the necessary animation block
     // https://twitter.com/SmileyKeith/status/684100833823174656
     guard

@@ -10,7 +10,9 @@ import Foundation
 import PassKit
 import UIKit
 
+#if canImport(Stripe3DS2)
 import Stripe3DS2
+#endif
 
 /// A client for making connections to the Stripe API.
 public class STPAPIClient: NSObject {
@@ -105,7 +107,7 @@ public class STPAPIClient: NSObject {
   }
 
   /// Headers common to all API requests for a given API Client.
-  @objc func defaultHeaders() -> [String: String] {
+  func defaultHeaders() -> [String: String] {
     var defaultHeaders: [String: String] = [:]
     defaultHeaders["X-Stripe-User-Agent"] = STPAPIClient.stripeUserAgentDetails(with: appInfo)
     var stripeVersion = APIVersion
@@ -806,7 +808,7 @@ extension STPAPIClient {
   // MARK: FPX
   /// Retrieves the online status of the FPX banks from the Stripe API.
   /// - Parameter completion:  The callback to run with the returned FPX bank list, or an error.
-  @objc func retrieveFPXBankStatus(
+  func retrieveFPXBankStatus(
     withCompletion completion: @escaping STPFPXBankStatusCompletionBlock
   ) {
     APIRequest<STPFPXBankStatusResponse>.getWith(
@@ -913,6 +915,7 @@ extension STPAPIClient {
   }
 }
 
+#if canImport(Stripe3DS2)
 // MARK: - ThreeDS2
 extension STPAPIClient {
   /// Kicks off 3DS2 authentication.
@@ -966,6 +969,8 @@ extension STPAPIClient {
     }
   }
 }
+
+#endif
 
 extension STPAPIClient {
   /// Retrieves possible BIN ranges for the 6 digit BIN prefix.

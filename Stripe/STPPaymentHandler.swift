@@ -10,7 +10,9 @@ import Foundation
 import PassKit
 import SafariServices
 
+#if canImport(Stripe3DS2)
 import Stripe3DS2
+#endif
 
 /// `STPPaymentHandlerActionStatus` represents the possible outcomes of requesting an action by `STPPaymentHandler`. An action could be confirming and/or handling the next action for a PaymentIntent.
 @objc public enum STPPaymentHandlerActionStatus: Int {
@@ -810,6 +812,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
               ]))
 
         case .threeDS2Fingerprint:
+          #if canImport(Stripe3DS2)
           guard let threeDSService = currentAction.threeDS2Service else {
             currentAction.complete(
               with: STPPaymentHandlerActionStatus.failed,
@@ -950,6 +953,18 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
                   "STPIntentAction": authenticationAction.description
                 ]))
           }
+          #else
+          STPAnalyticsClient.sharedClient.log3DS2ChallengeFlowSDKMissing(
+              with: currentAction.apiClient.configuration,
+            intentID: currentAction.intentStripeID ?? "")
+          currentAction.complete(
+            with: STPPaymentHandlerActionStatus.failed,
+            error: self._error(
+              for: .unsupportedAuthenticationErrorCode,
+              userInfo: [
+                "STPIntentAction": authenticationAction.description
+              ]))
+          #endif
 
         case .threeDS2Redirect:
           if let redirectURL = useStripeSDK.redirectURL {
@@ -1298,6 +1313,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
     }
   }
 
+#if canImport(Stripe3DS2)
   func _markChallengeCompleted(withCompletion completion: @escaping STPBooleanSuccessBlock) {
     guard let currentAction = currentAction,
       let threeDSSourceID = currentAction.nextAction()?.useStripeSDK?.threeDSSourceID
@@ -1339,7 +1355,8 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
     }
 
   }
-
+#endif
+  
   // MARK: - Errors
   func _error(
     for errorCode: STPPaymentHandlerErrorCode, userInfo additionalUserInfo: [AnyHashable: Any]?
@@ -1414,6 +1431,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
   }
 }
 
+#if canImport(Stripe3DS2)
 @available(iOSApplicationExtension, unavailable)
 private extension STPPaymentHandler {
   // MARK: - STPChallengeStatusReceiver
@@ -1566,3 +1584,4 @@ private extension STPPaymentHandler {
       uiType: transaction.presentedChallengeUIType)
   }
 }
+#endif

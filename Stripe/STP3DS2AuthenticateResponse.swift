@@ -8,6 +8,7 @@
 
 import Foundation
 
+#if canImport(Stripe3DS2)
 import Stripe3DS2
 
 enum STP3DS2AuthenticateResponseState: Int {
@@ -77,3 +78,5 @@ class STP3DS2AuthenticateResponse: NSObject, STPAPIResponseDecodable {
     return authResponse
   }
 }
+
+#endif

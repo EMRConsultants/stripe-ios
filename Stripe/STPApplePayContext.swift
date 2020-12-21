@@ -134,7 +134,7 @@ import PassKit
   @objc public var apiClient: STPAPIClient = .shared
 
   private weak var delegate: STPApplePayContextDelegate?
-  @objc var viewController: PKPaymentAuthorizationViewController?
+  var viewController: PKPaymentAuthorizationViewController?
   // Internal state
   private var paymentState: STPPaymentState = .notStarted
   private var error: Error?

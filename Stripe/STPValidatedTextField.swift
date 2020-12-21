@@ -41,7 +41,7 @@ class STPValidatedTextField: UITextField {
 
   private var _placeholderColor: UIColor?
   /// color to use for `placeholderText`, displayed when `text` is empty
-  @objc var placeholderColor: UIColor? {
+  var placeholderColor: UIColor? {
     get {
       _placeholderColor
     }
@@ -53,7 +53,7 @@ class STPValidatedTextField: UITextField {
 
   private var _validText = false
   /// flag to indicate whether the contents are valid or not.
-  @objc var validText: Bool {
+  var validText: Bool {
     get {
       _validText
     }

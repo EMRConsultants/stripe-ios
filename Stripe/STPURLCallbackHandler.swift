@@ -55,7 +55,7 @@ class STPURLCallbackHandler: NSObject {
     callbacks = callbacksCopy
   }
 
-  @objc func unregisterListener(_ listener: STPURLCallbackListener) {
+  func unregisterListener(_ listener: STPURLCallbackListener) {
     var callbacksToRemove: [AnyHashable] = []
 
     for callback in callbacks {

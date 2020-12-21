@@ -49,7 +49,7 @@ class AlipayExampleViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    @objc func didTapPayButton() {
+    func didTapPayButton() {
         guard StripeAPI.defaultPublishableKey != nil else {
             delegate?.exampleViewController(self, didFinishWithMessage: "Please set a Stripe Publishable Key in Constants.m")
             return
@@ -61,7 +61,7 @@ class AlipayExampleViewController: UIViewController {
 
 // MARK: -
 extension AlipayExampleViewController {
-    @objc func pay() {
+    func pay() {
         // 1. Create an Alipay PaymentIntent
         MyAPIClient.shared().createPaymentIntent(completion: { (_, clientSecret, error) in
             guard let clientSecret = clientSecret else {

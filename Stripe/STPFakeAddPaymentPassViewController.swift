@@ -187,7 +187,7 @@ public class STPFakeAddPaymentPassViewController: UIViewController {
     state = .initial
   }
 
-  @objc func cancel(_ sender: Any?) {
+  func cancel(_ sender: Any?) {
     let castedVC = unsafeBitCast(self, to: PKAddPaymentPassViewController.self)
     delegate?.addPaymentPassViewController(
       castedVC, didFinishAdding: nil,
@@ -196,7 +196,7 @@ public class STPFakeAddPaymentPassViewController: UIViewController {
         userInfo: nil))
   }
 
-  @objc func next(_ sender: Any?) {
+  func next(_ sender: Any?) {
     state = .loading
     let certificates = [
       "cert1".data(using: .utf8),
@@ -251,7 +251,7 @@ public class STPFakeAddPaymentPassViewController: UIViewController {
     }
   }
 
-  @objc func done(_ sender: Any?) {
+  func done(_ sender: Any?) {
     let pass = PKPaymentPass()
     let castedVC = unsafeBitCast(self, to: PKAddPaymentPassViewController.self)
     delegate?.addPaymentPassViewController(castedVC, didFinishAdding: pass, error: nil)

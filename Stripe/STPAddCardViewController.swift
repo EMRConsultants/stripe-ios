@@ -98,7 +98,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   }
 
   private var _alwaysEnableDoneButton = false
-  @objc var alwaysEnableDoneButton: Bool {
+  var alwaysEnableDoneButton: Bool {
     get {
       _alwaysEnableDoneButton
     }
@@ -110,7 +110,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
   private var configuration: STPPaymentConfiguration?
-  @objc var shippingAddress: STPAddress?
+  var shippingAddress: STPAddress?
   private var hasUsedShippingAddress = false
   private weak var cardImageView: UIImageView?
   private var doneItem: UIBarButtonItem?
@@ -150,7 +150,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   var paymentCell: STPPaymentCardTextFieldCell?
 
   private var _loading = false
-  @objc var loading: Bool {
+  var loading: Bool {
     get {
       _loading
     }
@@ -343,7 +343,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
 
-  @objc func scanCard() {
+  func scanCard() {
     if #available(iOS 13.0, *) {
       view.endEditing(true)
       isScanning = true
@@ -351,7 +351,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
 
-  @objc func endEditing() {
+  func endEditing() {
     view.endEditing(false)
   }
 
@@ -407,7 +407,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     delegate?.addCardViewControllerDidCancel(self)
   }
 
-  @objc func nextPressed(_ sender: Any?) {
+  func nextPressed(_ sender: Any?) {
     loading = true
     guard let cardParams = paymentCell?.paymentField?.cardParams else {
       return
@@ -488,7 +488,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     updateDoneButton()
   }
 
-  @objc func paymentFieldNextTapped() {
+  func paymentFieldNextTapped() {
     (addressViewModel.addressCells.stp_boundSafeObject(at: 0) as? UIView)?
       .becomeFirstResponder()
   }
@@ -690,7 +690,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     return UIView()
   }
 
-  @objc func useShippingAddress(_ sender: UIButton) {
+  func useShippingAddress(_ sender: UIButton) {
     tableView?.beginUpdates()
     addressViewModel.address = shippingAddress ?? STPAddress()
     hasUsedShippingAddress = true
@@ -792,7 +792,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   ///   - addCardViewController: the view controller that successfully created a token
   ///   - paymentMethod:         the Payment Method that was created. - seealso: STPPaymentMethod
   ///   - completion:            call this callback when you're done sending the token to your backend
-  @objc func addCardViewController(
+  func addCardViewController(
     _ addCardViewController: STPAddCardViewController,
     didCreatePaymentMethod paymentMethod: STPPaymentMethod,
     completion: @escaping STPErrorBlock

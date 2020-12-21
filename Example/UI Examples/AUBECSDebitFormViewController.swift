@@ -35,7 +35,7 @@ class AUBECSDebitFormViewController: UIViewController {
             ])
         }
 
-        @objc func done() {
+        func done() {
             dismiss(animated: true, completion: nil)
         }
 }

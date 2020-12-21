@@ -142,13 +142,13 @@ class BrowseProductsViewController: UICollectionViewController {
         }
     }
 
-    @objc func showSettings() {
+    func showSettings() {
         let navController = UINavigationController(rootViewController: settingsVC)
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
     }
 
-    @objc func didSelectBuy() {
+    func didSelectBuy() {
         let checkoutViewController = CheckoutViewController(products: shoppingCart,
                                                             settings: self.settingsVC.settings)
         self.navigationController?.pushViewController(checkoutViewController, animated: true)

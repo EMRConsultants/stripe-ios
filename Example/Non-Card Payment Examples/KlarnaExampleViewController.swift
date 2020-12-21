@@ -59,7 +59,7 @@ class KlarnaExampleViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    @objc func didTapPayButton(sender: UIButton) {
+    func didTapPayButton(sender: UIButton) {
         guard StripeAPI.defaultPublishableKey != nil else {
             delegate?.exampleViewController(self, didFinishWithMessage: "Please set a Stripe Publishable Key in Constants.m")
             return
@@ -76,7 +76,7 @@ class KlarnaExampleViewController: UIViewController {
 // MARK: -
 extension KlarnaExampleViewController {
 
-    @objc func payWithKnownCustomerInfo() {
+    func payWithKnownCustomerInfo() {
         // You can optionally pass the customer's information to Klarna. If this information is not
         // provided, Klarna will request it from the customer during checkout.
         // Note: If you do not provide all required fields (full street address, first/last names, and
@@ -126,7 +126,7 @@ extension KlarnaExampleViewController {
         payWithSourceParams(sourceParams: sourceParams)
     }
 
-    @objc func payWithoutCustomerInfo() {
+    func payWithoutCustomerInfo() {
         // This is the minimal amount of information required for a Klarna transaction.
         // Klarna will request additional information from the customer during checkout.
         let items = [STPKlarnaLineItem(itemType: .SKU, itemDescription: "Mysterious Item", quantity: 1, totalAmount: 10000)]
@@ -141,7 +141,7 @@ extension KlarnaExampleViewController {
         payWithSourceParams(sourceParams: sourceParams)
     }
 
-    @objc func payWithSourceParams(sourceParams: STPSourceParams) {
+    func payWithSourceParams(sourceParams: STPSourceParams) {
         // 1. Create an Klarna Source.
         STPAPIClient.shared.createSource(with: sourceParams) { source, error in
             guard let source = source else {

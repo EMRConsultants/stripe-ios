@@ -90,7 +90,7 @@ class ThemeViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
     }
 
-    @objc func cancel() {
+    func cancel() {
         dismiss(animated: true, completion: nil)
     }
 

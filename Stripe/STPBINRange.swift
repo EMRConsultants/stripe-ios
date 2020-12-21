@@ -174,7 +174,7 @@ class STPBINRange: NSObject, STPAPIResponseDecodable {
     return withinLowRange && withinHighRange
   }
 
-  @objc func compare(_ other: STPBINRange) -> ComparisonResult {
+  func compare(_ other: STPBINRange) -> ComparisonResult {
     return NSNumber(value: qRangeLow.count ).compare(
       NSNumber(value: other.qRangeLow.count ))
   }

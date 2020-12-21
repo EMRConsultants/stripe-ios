@@ -88,7 +88,7 @@ open class STPCustomerContext: NSObject, STPBackendAPIAdapter {
       customerRetrievedDate = (customer) != nil ? Date() : nil
     }
   }
-  @objc internal var customerRetrievedDate: Date?
+  internal var customerRetrievedDate: Date?
 
   private var _paymentMethods: [STPPaymentMethod]?
   private var paymentMethods: [STPPaymentMethod]? {
@@ -112,7 +112,7 @@ open class STPCustomerContext: NSObject, STPBackendAPIAdapter {
       paymentMethodsRetrievedDate = paymentMethods != nil ? Date() : nil
     }
   }
-  @objc internal var paymentMethodsRetrievedDate: Date?
+  internal var paymentMethodsRetrievedDate: Date?
   private var keyManager: STPEphemeralKeyManager
   private var apiClient: STPAPIClient
 

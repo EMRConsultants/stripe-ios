@@ -12,7 +12,27 @@ Pod::Spec.new do |s|
   s.ios.deployment_target          = '11.0'
   s.swift_version		               = '5.0'
   s.source_files                   = 'Stripe/*.swift'
-  s.vendored_frameworks            = 'InternalFrameworks/static/Stripe3DS2.xcframework'
-  s.resource_bundles           = { 'Stripe' => ['Stripe/Resources/Images/Stripe.xcassets', 'Stripe/Resources/**/*.{lproj,json,png}'] }
-  s.resources                  = ['InternalFrameworks/static/Stripe3DS2.bundle']
+  s.exclude_files = ['Stripe/STPThreeDS*.swift',
+    'Stripe/*TableViewCell.swift',
+    'Stripe/STPMultiFormTextField.swift',
+    'Stripe/STPLabeledFormTextFieldView.swift',
+    'Stripe/STPLabeledMultiFormTextFieldView.swift',
+    'Stripe/STPFormTextFieldContainer.swift',
+    'Stripe/STPAUBECSDebitFormView.swift',
+    'Stripe/*ViewController.swift',
+    'Stripe/STPPaymentCardTextFieldCell.swift',
+    'Stripe/STPPaymentActivityIndicatorView.swift',
+    'Stripe/STPSectionHeaderView.swift',
+    'Stripe/STPCardScanner.swift',
+    'Stripe/STPCardScannerTableViewCell.swift',
+    'Stripe/STPCameraView.swift',
+    'Stripe/STPUserInformation.swift',
+    'Stripe/STPPaymentContext.swift',
+    'Stripe/UIBarButtonItem+Stripe.swift',
+    'Stripe/UINavigationBar+Stripe_Theme.swift',
+    'Stripe/STPTheme.swift',
+    'Stripe/STPAddressViewModel.swift',
+    'Stripe/STPAUBECSFormViewModel.swift',
+    'Stripe/UIViewController+Stripe_KeyboardAvoiding.swift']
+  s.resource_bundles           = { 'Stripe' => ['Stripe/Resources/Images/Stripe.xcassets', 'Stripe/Resources/**/*.{lproj}'] }
 end

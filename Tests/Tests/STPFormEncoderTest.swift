@@ -13,11 +13,11 @@ import XCTest
 class STPTestFormEncodableObject: NSObject, STPFormEncodable {
   var additionalAPIParameters: [AnyHashable: Any] = [:]
 
-  @objc var testProperty: String?
-  @objc var testIgnoredProperty: String?
-  @objc var testArrayProperty: [AnyHashable]?
-  @objc var testDictionaryProperty: [AnyHashable: Any]?
-  @objc var testNestedObjectProperty: STPTestFormEncodableObject?
+  var testProperty: String?
+  var testIgnoredProperty: String?
+  var testArrayProperty: [AnyHashable]?
+  var testDictionaryProperty: [AnyHashable: Any]?
+  var testNestedObjectProperty: STPTestFormEncodableObject?
 
   class func rootObjectName() -> String? {
     return "test_object"

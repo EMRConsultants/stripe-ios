@@ -124,7 +124,7 @@ public class STPPaymentIntent: NSObject {
   @objc public let allResponseFields: [AnyHashable: Any]
 
   /// The optionally expanded PaymentMethod used in this PaymentIntent.
-  @objc internal let paymentMethod: STPPaymentMethod?
+  internal let paymentMethod: STPPaymentMethod?
 
   /// :nodoc:
   @objc public override var description: String {

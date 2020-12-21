@@ -54,7 +54,7 @@ class GrabPayExampleViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
-    @objc func didTapPayButton(sender: UIButton) {
+    func didTapPayButton(sender: UIButton) {
         inProgress = true
 
         let grabPayParams = STPPaymentMethodGrabPayParams()
