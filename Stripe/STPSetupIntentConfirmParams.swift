@@ -43,7 +43,7 @@ public class STPSetupIntentConfirmParams: NSObject, NSCopying, STPFormEncodable 
   /// When set to true, the nextAction may contain information that the Stripe SDK can use to perform native authentication within your
   /// app.
   @objc public var useStripeSDK: NSNumber?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// Details about the Mandate to create.
   /// @note If this value is null and the `(self.paymentMethod.type == STPPaymentMethodTypeSEPADebit | | self.paymentMethodParams.type == STPPaymentMethodTypeAUBECSDebit || self.paymentMethodParams.type == STPPaymentMethodTypeBacsDebit) && self.mandate == nil`, the SDK will set this to an internal value indicating that the mandate data should be inferred from the current context.
   @objc public var mandateData: STPMandateDataParams? {
@@ -94,7 +94,7 @@ public class STPSetupIntentConfirmParams: NSObject, NSCopying, STPFormEncodable 
       // Additional params set by app
       "additionalAPIParameters = \(additionalAPIParameters )",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   props = props + [
     // Mandate
     "mandateData = \(String(describing: mandateData))",
@@ -114,7 +114,7 @@ public class STPSetupIntentConfirmParams: NSObject, NSCopying, STPFormEncodable 
     copy.paymentMethodID = paymentMethodID
     copy.returnURL = returnURL
     copy.useStripeSDK = useStripeSDK
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     copy.mandateData = mandateData
 #endif
     copy.additionalAPIParameters = additionalAPIParameters
@@ -135,7 +135,7 @@ public class STPSetupIntentConfirmParams: NSObject, NSCopying, STPFormEncodable 
       NSStringFromSelector(#selector(getter:returnURL)): "return_url",
       NSStringFromSelector(#selector(getter:useStripeSDK)): "use_stripe_sdk",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     props = props + [
       NSStringFromSelector(#selector(getter:mandateData)): "mandate_data",
     ]

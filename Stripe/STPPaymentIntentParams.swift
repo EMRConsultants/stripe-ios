@@ -47,7 +47,7 @@ public class STPPaymentIntentParams: NSObject {
   /// @note alternative to `paymentMethodParams`
   @objc public var paymentMethodId: String?
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// Provide a supported `STPSourceParams` object into here, and Stripe will create a Source
   /// during PaymentIntent confirmation.
   /// @note alternative to `sourceId`
@@ -94,7 +94,7 @@ public class STPPaymentIntentParams: NSObject {
   /// When set to true, the nextAction may contain information that the Stripe SDK can use to perform native authentication within your
   /// app.
   @objc public var useStripeSDK: NSNumber?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   internal var _mandateData: STPMandateDataParams?
   /// Details about the Mandate to create.
   /// @note If this value is null and the (self.paymentMethod.type == STPPaymentMethodTypeSEPADebit | | self.paymentMethodParams.type == STPPaymentMethodTypeAUBECSDebit || self.paymentMethodParams.type == STPPaymentMethodTypeBacsDebit) && self.mandate == nil`, the SDK will set this to an internal value indicating that the mandate data should be inferred from the current context.
@@ -196,7 +196,7 @@ public class STPPaymentIntentParams: NSObject {
       "additionalAPIParameters = \(additionalAPIParameters)",
     ]
 
-    #if canImport(Stripe3DS2)
+    #if !STRIPE_MIN_SDK
     props = props + [
       "sourceParams = \(String(describing: sourceParams))",
       // Mandate
@@ -247,7 +247,7 @@ extension STPPaymentIntentParams: STPFormEncodable {
       NSStringFromSelector(#selector(getter:paymentMethodOptions)): "payment_method_options",
       NSStringFromSelector(#selector(getter:shipping)): "shipping",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     props = props + [
       NSStringFromSelector(#selector(getter:sourceParams)): "source_data",
       NSStringFromSelector(#selector(getter:mandateData)): "mandate_data",
@@ -267,7 +267,7 @@ extension STPPaymentIntentParams: NSCopying {
 
     copy.paymentMethodParams = paymentMethodParams
     copy.paymentMethodId = paymentMethodId
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     copy.sourceParams = sourceParams
     copy.mandateData = mandateData
 #endif

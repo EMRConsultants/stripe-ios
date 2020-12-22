@@ -38,7 +38,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
   @objc public var billingDetails: STPPaymentMethodBillingDetails?
   /// If this is a card PaymentMethod, this contains the user’s card details.
   @objc public var card: STPPaymentMethodCardParams?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// If this is an Alipay PaymentMethod, this contains additional details.
   @objc public var alipay: STPPaymentMethodAlipayParams?
   /// If this is a iDEAL PaymentMethod, this contains details about user's bank.
@@ -92,7 +92,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
     self.metadata = metadata
   }
   
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// Creates params for an iDEAL PaymentMethod.
   /// - Parameters:
   ///   - iDEAL:               An object containing the user's iDEAL bank details.
@@ -466,7 +466,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
       NSStringFromSelector(#selector(getter:card)): "card",
       NSStringFromSelector(#selector(getter:metadata)): "metadata",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     mapping = mapping + [
       NSStringFromSelector(#selector(getter:iDEAL)): "ideal",
       NSStringFromSelector(#selector(getter:eps)): "eps",
@@ -523,7 +523,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
     case .iDEAL:
       return "iDEAL"
     case .FPX:
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
       if let fpx = fpx {
         return STPFPXBank.stringFrom(fpx.bank) ?? ""
       } else {
@@ -596,7 +596,7 @@ extension STPPaymentMethodParams {
     return STPPaymentMethodParams(card: card, billingDetails: billingDetails, metadata: metadata)
   }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 
   /// Creates params for an iDEAL PaymentMethod.
   /// - Parameters:

@@ -23,7 +23,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
   @objc private(set) public var type: STPPaymentMethodType = .unknown
   /// Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
   @objc private(set) public var billingDetails: STPPaymentMethodBillingDetails?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// If this is an Alipay PaymentMethod (ie `self.type == STPPaymentMethodTypeAlipay`), this contains additional details.
   @objc private(set) public var alipay: STPPaymentMethodAlipay?
   /// If this is a GrabPay PaymentMethod (ie `self.type == STPPaymentMethodTypeGrabPay`), this contains additional details.
@@ -37,7 +37,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
   @objc private(set) public var card: STPPaymentMethodCard?
   /// If this is a card present PaymentMethod (ie `self.type == STPPaymentMethodTypeCardPresent`), this contains additional details.
   @objc private(set) public var cardPresent: STPPaymentMethodCardPresent?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// If this is a SEPA Debit PaymentMethod (ie `self.type == STPPaymentMethodTypeSEPADebit`), this contains additional details.
   @objc private(set) public var sepaDebit: STPPaymentMethodSEPADebit?
   /// If this is a Bacs Debit PaymentMethod (ie `self.type == STPPaymentMethodTypeBacsDebit`), this contains additional details.
@@ -95,7 +95,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
       "liveMode = \(liveMode ? "YES" : "NO")",
       "type = \(allResponseFields["type"] as? String ?? "")",
       ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     props = props + [
       // STPPaymentMethod details (alphabetical)
       "alipay = \(String(describing: alipay))",
@@ -205,7 +205,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
     paymentMethod.card = STPPaymentMethodCard.decodedObject(
       fromAPIResponse: dict.stp_dictionary(forKey: "card"))
     paymentMethod.type = self.type(from: dict.stp_string(forKey: "type") ?? "")
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     paymentMethod.iDEAL = STPPaymentMethodiDEAL.decodedObject(
       fromAPIResponse: dict.stp_dictionary(forKey: "ideal"))
     if let stp = dict.stp_dictionary(forKey: "fpx") {
@@ -215,7 +215,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
     if let stp = dict.stp_dictionary(forKey: "card_present") {
       paymentMethod.cardPresent = STPPaymentMethodCardPresent.decodedObject(fromAPIResponse: stp)
     }
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     paymentMethod.sepaDebit = STPPaymentMethodSEPADebit.decodedObject(
       fromAPIResponse: dict.stp_dictionary(forKey: "sepa_debit"))
     paymentMethod.bacsDebit = STPPaymentMethodBacsDebit.decodedObject(
@@ -280,7 +280,7 @@ public class STPPaymentMethod: NSObject, STPAPIResponseDecodable, STPPaymentOpti
     case .iDEAL:
       return STPLocalizedString("iDEAL", "Source type brand name")
     case .FPX:
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
       if let fpx = fpx {
         return STPFPXBank.stringFrom(STPFPXBank.brandFrom(fpx.bankIdentifierCode)) ?? ""
       } else {

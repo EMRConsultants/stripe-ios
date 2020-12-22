@@ -33,7 +33,7 @@ import Foundation
   /// The payment intent requires additional action handled by `STPPaymentHandler`.
   case useStripeSDK
   
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// The action type is OXXO payment. We provide `STPPaymentHandler` to display
   /// the OXXO voucher.
   case OXXODisplayDetails
@@ -51,7 +51,7 @@ import Foundation
       self = .redirectToURL
     case "use_stripe_sdk":
       self = .useStripeSDK
-    #if canImport(Stripe3DS2)
+    #if !STRIPE_MIN_SDK
     case "oxxo_display_details":
       self = .OXXODisplayDetails
     case "alipay_handle_redirect":
@@ -71,7 +71,7 @@ import Foundation
       return "redirect_to_url"
     case .useStripeSDK:
       return "use_stripe_sdk"
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     case .OXXODisplayDetails:
       return "oxxo_display_details"
     case .alipayHandleRedirect:
@@ -100,7 +100,7 @@ public class STPIntentAction: NSObject {
   /// The details for authorizing via URL, when `type == .redirectToURL`
   @objc public let redirectToURL: STPIntentActionRedirectToURL?
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// The details for displaying OXXO voucher via URL, when `type == .OXXODisplayDetails`
   @objc public let oxxoDisplayDetails: STPIntentActionOXXODisplayDetails?
 
@@ -132,7 +132,7 @@ public class STPIntentAction: NSObject {
       if let useStripeSDK = useStripeSDK {
         props.append("useStripeSDK = \(useStripeSDK)")
       }
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     case .OXXODisplayDetails:
       if let oxxoDisplayDetails = oxxoDisplayDetails {
         props.append("oxxoDisplayDetails = \(oxxoDisplayDetails)")
@@ -149,7 +149,7 @@ public class STPIntentAction: NSObject {
 
     return "<\(props.joined(separator: "; "))>"
   }
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   internal init(
     type: STPIntentActionType,
     redirectToURL: STPIntentActionRedirectToURL?,
@@ -175,7 +175,7 @@ internal init(
 ) {
   self.type = type
   self.redirectToURL = redirectToURL
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   self.alipayHandleRedirect = alipayHandleRedirect
   self.oxxoDisplayDetails = oxxoDisplayDetails
 #endif
@@ -202,7 +202,7 @@ extension STPIntentAction: STPAPIResponseDecodable {
     // STPIntentActionRedirectToURL object fails, map type to `.unknown`
     var type = STPIntentActionType(string: rawType)
     var redirectToURL: STPIntentActionRedirectToURL?
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     var alipayHandleRedirect: STPIntentActionAlipayHandleRedirect?
     var oxxoDisplayDetails: STPIntentActionOXXODisplayDetails?
 #endif
@@ -223,7 +223,7 @@ extension STPIntentAction: STPAPIResponseDecodable {
       if useStripeSDK == nil {
         type = .unknown
       }
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     case .OXXODisplayDetails:
       oxxoDisplayDetails = STPIntentActionOXXODisplayDetails.decodedObject(
         fromAPIResponse: dict["oxxo_display_details"] as? [AnyHashable: Any])
@@ -239,7 +239,7 @@ extension STPIntentAction: STPAPIResponseDecodable {
 #endif
     }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 return STPIntentAction(
   type: type,
   redirectToURL: redirectToURL,

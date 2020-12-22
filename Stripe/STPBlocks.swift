@@ -56,7 +56,7 @@ public typealias STPJSONResponseCompletionBlock = ([AnyHashable: Any]?, Error?) 
 ///   - token: The Stripe token from the response. Will be nil if an error occurs. - seealso: STPToken
 ///   - error: The error returned from the response, or nil if none occurs. - seealso: StripeError.h for possible values.
 public typealias STPTokenCompletionBlock = (STPToken?, Error?) -> Void
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 /// A callback to be run with a source response from the Stripe API.
 /// - Parameters:
 ///   - source: The Stripe source from the response. Will be nil if an error occurs. - seealso: STPSource
@@ -88,7 +88,7 @@ public typealias STPPaymentMethodCompletionBlock = (STPPaymentMethod?, Error?) -
 ///   - paymentMethods: An array of PaymentMethod from the response. Will be nil if an error occurs. - seealso: STPPaymentMethod
 ///   - error: The error returned from the response, or nil if none occurs. - seealso: StripeError.h for possible values.
 public typealias STPPaymentMethodsCompletionBlock = ([STPPaymentMethod]?, Error?) -> Void
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 /// A callback to be run with a validation result and shipping methods for a
 /// shipping address.
 /// - Parameters:
@@ -128,7 +128,7 @@ public typealias STPCustomerCompletionBlock = (STPCustomer?, Error?) -> Void
   case unknownError
 }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 /// A callback to be run with a card PIN response from the Stripe API.
 /// - Parameters:
 ///   - cardPin: The Stripe card PIN from the response. Will be nil if an error occurs. - seealso: STPIssuingCardPin

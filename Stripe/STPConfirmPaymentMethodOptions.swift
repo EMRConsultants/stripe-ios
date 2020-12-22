@@ -16,7 +16,7 @@ public class STPConfirmPaymentMethodOptions: NSObject {
   /// - seealso: STPConfirmCardOptions
   @objc public var cardOptions: STPConfirmCardOptions?
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// Options for an Alipay Payment Method.
   @objc public var alipayOptions: STPConfirmAlipayOptions?
 #endif
@@ -31,7 +31,7 @@ public class STPConfirmPaymentMethodOptions: NSObject {
       String(format: "%@: %p", NSStringFromClass(type(of: self)), self),
       "card = \(String(describing: cardOptions))",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     props = props + [
       "alipay = \(String(describing: alipayOptions))",
     ]
@@ -47,7 +47,7 @@ extension STPConfirmPaymentMethodOptions: STPFormEncodable {
     var props = [
       NSStringFromSelector(#selector(getter:cardOptions)): "card",
     ]
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     props = props + [
       NSStringFromSelector(#selector(getter:alipayOptions)): "alipay",
     ]

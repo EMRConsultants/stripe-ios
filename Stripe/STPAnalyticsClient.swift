@@ -65,7 +65,7 @@ class STPAnalyticsClient: NSObject {
     objc_sync_exit(self)
 
     let uiUsageLevel: String
-    #if canImport(Stripe3DS2)
+    #if !STRIPE_MIN_SDK
     if productUsageCopy.contains(NSStringFromClass(STPPaymentContext.self.self)) {
       uiUsageLevel = "full"
     } else if productUsageCopy.count == 1
@@ -129,7 +129,7 @@ extension STPAnalyticsClient {
     payload["app_version"] = Bundle.stp_applicationVersion() ?? ""
     payload["apple_pay_enabled"] = NSNumber(value: StripeAPI.deviceSupportsApplePay())
     payload["ocr_type"] = "none"
-    #if canImport(Stripe3DS2)
+    #if !STRIPE_MIN_SDK
     if #available(iOS 13.0, *) {
       if STPAnalyticsClient.sharedClient.productUsage.contains(
         NSStringFromClass(STPCardScanner.self.self))

@@ -12,7 +12,7 @@ import Foundation
 public class STPPaymentMethodCardParams: NSObject, STPFormEncodable {
   @objc public var additionalAPIParameters: [AnyHashable: Any] = [:]
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   /// A convenience initializer for creating a payment method from a card source.
   /// This should be used to help with migrations to Payment Methods from Sources.
   @objc public convenience init(cardSourceParams: STPCardParams) {

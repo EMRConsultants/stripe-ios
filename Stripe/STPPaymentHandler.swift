@@ -771,7 +771,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
             ]))
       }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     case .alipayHandleRedirect:
       if let alipayHandleRedirect = authenticationAction.alipayHandleRedirect {
         _handleRedirect(
@@ -813,7 +813,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
               ]))
 
         case .threeDS2Fingerprint:
-          #if canImport(Stripe3DS2)
+          #if !STRIPE_MIN_SDK
           guard let threeDSService = currentAction.threeDS2Service else {
             currentAction.complete(
               with: STPPaymentHandlerActionStatus.failed,
@@ -1003,7 +1003,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
     let pingMarlinIfNecessary:
       ((STPPaymentHandlerPaymentIntentActionParams, @escaping STPVoidBlock) -> Void) = {
         currentAction, completionBlock in
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
         if let paymentMethod = currentAction.paymentIntent?.paymentMethod,
           paymentMethod.type == .alipay,
           let alipayHandleRedirect = currentAction.nextAction()?.alipayHandleRedirect,
@@ -1222,7 +1222,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
   /// Currently only OXXO payment is voucher-based.
   /// If it's voucher-based, the paymentIntent status stays in requiresAction until the voucher is paid or expired.
   func _isPaymentIntentNextActionVoucherBased(nextAction: STPIntentAction?) -> Bool {
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     if let nextAction = nextAction {
       return nextAction.type == .OXXODisplayDetails
     }
@@ -1281,7 +1281,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
       threeDSSourceID = nextAction.redirectToURL?.threeDSSourceID
     case .useStripeSDK:
       threeDSSourceID = nextAction.useStripeSDK?.threeDSSourceID
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
     case .OXXODisplayDetails, .alipayHandleRedirect:
       break
 #endif
@@ -1324,7 +1324,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
     }
   }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
   func _markChallengeCompleted(withCompletion completion: @escaping STPBooleanSuccessBlock) {
     guard let currentAction = currentAction,
       let threeDSSourceID = currentAction.nextAction()?.useStripeSDK?.threeDSSourceID
@@ -1442,7 +1442,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
   }
 }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 @available(iOSApplicationExtension, unavailable)
 private extension STPPaymentHandler {
   // MARK: - STPChallengeStatusReceiver

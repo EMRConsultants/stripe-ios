@@ -10,7 +10,9 @@ import Foundation
 
 #if canImport(Stripe3DS2)
 import Stripe3DS2
+#endif
 
+#if !STRIPE_MIN_SDK
 enum STP3DS2AuthenticateResponseState: Int {
   /// Unknown Authenticate Response state
   case unknown = 0

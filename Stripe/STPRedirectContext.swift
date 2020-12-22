@@ -93,7 +93,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
   /// Error parameter for completion block.
   internal var completionError: Error?
 
-#if canImport(Stripe3DS2)
   /// Initializer for context from an `STPSource`.
   /// @note You must ensure that the returnURL set up in the created source
   /// correctly goes to your app so that users can be returned once
@@ -138,7 +137,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
     }
     self.source = source
   }
-#endif
   
   /// Initializer for context from an `STPPaymentIntent`.
   /// This should be used when the `status` is `STPPaymentIntentStatusRequiresAction`.
@@ -209,7 +207,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
         if strongSelf == nil {
           return
         }
-        #if canImport(Stripe3DS2)
         // Redirect failed...
         if strongSelf?.source?.type == .weChatPay {
           // ...and this Source doesn't support web-based redirect — finish with an error.
@@ -230,7 +227,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
           strongSelf?.unsubscribeFromNotifications()
           strongSelf?.startSafariViewControllerRedirectFlow(from: presentingViewController)
         }
-        #endif
       })
     }
   }
@@ -301,9 +297,7 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
   private var safariVC: SFSafariViewController?
   /// If we're on iOS 11+ and in the SafariVC flow, this tracks the latest URL loaded/redirected to during the initial load
   private var lastKnownSafariVCURL: URL?
-#if canImport(Stripe3DS2)
   private var source: STPSource?
-#endif
   private var subscribedToURLNotifications = false
   private var subscribedToAppActiveNotifications = false
 
@@ -536,7 +530,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
     return safariVC != nil
   }
 
-#if canImport(Stripe3DS2)
   class func nativeRedirectURL(for source: STPSource) -> URL? {
     var nativeURLString: String?
     switch source.type {
@@ -552,7 +545,6 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
     let nativeURL = nativeURLString != nil ? URL(string: nativeURLString ?? "") : nil
     return nativeURL
   }
-#endif
 }
 
 @objc protocol STPSafariViewControllerDismissalDelegate: NSObjectProtocol {

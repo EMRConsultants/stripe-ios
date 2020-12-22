@@ -204,7 +204,7 @@ public class STPAPIClient: NSObject {
     let data = try? JSONSerialization.data(withJSONObject: details, options: [])
     return String(data: data ?? Data(), encoding: .utf8) ?? ""
   }
-  #if canImport(Stripe3DS2)
+  #if !STRIPE_MIN_SDK
   /// A helper method that returns the Authorization header to use for API requests. If ephemeralKey is nil, uses self.publishableKey instead.
   @objc(authorizationHeaderUsingEphemeralKey:)
   func authorizationHeader(using ephemeralKey: STPEphemeralKey? = nil) -> [String: String] {
@@ -227,7 +227,7 @@ public class STPAPIClient: NSObject {
 }
 
 // MARK: Bank Accounts
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 /// STPAPIClient extensions to create Stripe tokens from bank accounts.
 extension STPAPIClient {
   /// Converts an STPBankAccount object into a Stripe token using the Stripe API.
@@ -289,7 +289,7 @@ extension STPAPIClient {
   }
 }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 // MARK: Connect Accounts
 
 /// STPAPIClient extensions for working with Connect Accounts
@@ -661,7 +661,7 @@ extension STPAPIClient {
 
     let identifier = paymentIntentParams.stripeId ?? ""
     var sourceType : String? = nil
-    #if canImport(Stripe3DS2)
+    #if !STRIPE_MIN_SDK
     sourceType = paymentIntentParams.sourceParams?.rawTypeString
     #endif
     let type =
@@ -819,7 +819,7 @@ extension STPAPIClient {
 
   }
 
-  #if canImport(Stripe3DS2)
+  #if !STRIPE_MIN_SDK
   // MARK: FPX
   /// Retrieves the online status of the FPX banks from the Stripe API.
   /// - Parameter completion:  The callback to run with the returned FPX bank list, or an error.
@@ -839,7 +839,7 @@ extension STPAPIClient {
   #endif
 }
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 // MARK: - Customers
 extension STPAPIClient {
   /// Retrieve a customer
@@ -933,7 +933,7 @@ extension STPAPIClient {
 }
 #endif
 
-#if canImport(Stripe3DS2)
+#if !STRIPE_MIN_SDK
 // MARK: - ThreeDS2
 extension STPAPIClient {
   /// Kicks off 3DS2 authentication.
