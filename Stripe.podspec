@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
     fs.vendored_frameworks            = 'InternalFrameworks/static/Stripe3DS2.xcframework'
   end
   s.subspec 'Min' do |ms|
-    ms.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DSTRIPE_MIN_SDK' }
+    ms.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DSTRIPE_MIN_SDK',
+                               'SWIFT_OPTIMIZATION_LEVEL' => '-Osize' }
     ms.resource_bundles           = { 'Stripe' => ['Stripe/Resources/**/*.{lproj,png}'] }
     ms.source_files                   = 'Stripe/*.swift'
     ms.exclude_files = ['Stripe/STPThreeDS*.swift',
@@ -34,6 +35,7 @@ Pod::Spec.new do |s|
       'Stripe/STPSectionHeaderView.swift',
       'Stripe/STPCardScanner.swift',
       'Stripe/STPCardScannerTableViewCell.swift',
+      'Stripe/STPCardParams.swift',
       'Stripe/STPCameraView.swift',
       'Stripe/STPUserInformation.swift',
       'Stripe/STPPaymentContex*.swift',
@@ -53,6 +55,8 @@ Pod::Spec.new do |s|
       'Stripe/STPSourceVerification.swift',
       'Stripe/STPSourceCardDetails.swift',
       'Stripe/STPSourceKlarnaDetails.swift',
+      'Stripe/STPMultipart*.swift',
+      'Stripe/STPSourceSEPA*.swift',
       'Stripe/STPCustome*.swift',
       'Stripe/STPBackendAPIAdapter.swift',
       'Stripe/STPBankAccount.swift',
