@@ -27,7 +27,8 @@ Pod::Spec.new do |s|
     'Stripe/STPCardScannerTableViewCell.swift',
     'Stripe/STPCameraView.swift',
     'Stripe/STPUserInformation.swift',
-    'Stripe/STPPaymentContext.swift',
+    'Stripe/STPPaymentContex*.swift',
+    'Stripe/UITableViewCell+Stripe_Borders.swift',
     'Stripe/UIBarButtonItem+Stripe.swift',
     'Stripe/UINavigationBar+Stripe_Theme.swift',
     'Stripe/STPTheme.swift',
@@ -80,6 +81,8 @@ Pod::Spec.new do |s|
     'Stripe/STPConnect*.swift',
     'Stripe/STPFile.swift',
     'Stripe/STPPinManagementService.swift',
+    'Stripe/UIViewController+Stripe_NavigationItemProxy.swift',
+    'Stripe/UIImage+Stripe.swift',
     'Stripe/UIViewController+Stripe_KeyboardAvoiding.swift']
   s.resource_bundles           = { 'Stripe' => ['Stripe/Resources/**/*.{lproj,png}'] }
 end
