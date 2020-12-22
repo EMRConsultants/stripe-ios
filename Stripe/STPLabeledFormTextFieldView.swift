@@ -62,7 +62,7 @@ class STPLabeledFormTextFieldView: STPViewWithSeparator {
     NSLayoutConstraint.activate(constraints)
   }
 
-  var formBackgroundColor: UIColor? {
+  @objc var formBackgroundColor: UIColor? {
     get {
       return backgroundColor ?? UIColor.clear
     }

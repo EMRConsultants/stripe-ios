@@ -12,7 +12,7 @@ import UIKit
 class STPAnalyticsClient: NSObject {
   @objc static let sharedClient = STPAnalyticsClient()
 
-  internal var productUsage: Set<String> = Set()
+  @objc internal var productUsage: Set<String> = Set()
   private var additionalInfoSet: Set<String> = Set()
   private var urlSession: URLSession = URLSession(
     configuration: STPAPIClient.sharedUrlSessionConfiguration)

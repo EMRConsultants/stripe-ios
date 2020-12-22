@@ -83,13 +83,13 @@ public class STPRedirectContext: NSObject, SFSafariViewControllerDelegate, STPUR
   @objc public internal(set) var state: STPRedirectContextState = .notStarted
 
   /// Optional URL for a native app. This is passed directly to `UIApplication openURL:`, and if it fails this class falls back to `redirectURL`
-  internal var nativeRedirectURL: URL?
+  @objc internal var nativeRedirectURL: URL?
   /// The URL to redirect to, assuming `nativeRedirectURL` is nil or fails to open. Cannot be nil if `nativeRedirectURL` is.
-  internal var redirectURL: URL?
+  @objc internal var redirectURL: URL?
   /// The expected `returnURL`, passed to STPURLCallbackHandler
-  internal var returnURL: URL?
+  @objc internal var returnURL: URL?
   /// Completion block to execute when finished redirecting, with optional error parameter.
-  internal var completion: STPErrorBlock
+  @objc internal var completion: STPErrorBlock
   /// Error parameter for completion block.
   internal var completionError: Error?
 

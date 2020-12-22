@@ -38,7 +38,7 @@ public class STPToken: NSObject, STPAPIResponseDecodable {
   @objc public private(set) var type: STPTokenType = .account
   /// The credit card details that were used to create the token. Will only be set if the token was created via a credit card or Apple Pay, otherwise it will be
   /// nil.
-  @objc public private(set) var card: STPPaymentMethodCard?
+  @objc public private(set) var card: STPCard?
 #if !STRIPE_MIN_SDK
   /// The bank account details that were used to create the token. Will only be set if the token was created with a bank account, otherwise it will be nil.
   @objc public private(set) var bankAccount: STPBankAccount?
@@ -123,7 +123,7 @@ public class STPToken: NSObject, STPAPIResponseDecodable {
     token.type = self._tokenType(for: rawType)
 
     let rawCard = dict.stp_dictionary(forKey: "card")
-    token.card = STPPaymentMethodCard.decodedObject(fromAPIResponse: rawCard)
+    token.card = STPCard.decodedObject(fromAPIResponse: rawCard)
 
 #if !STRIPE_MIN_SDK
     let rawBankAccount = dict.stp_dictionary(forKey: "bank_account")

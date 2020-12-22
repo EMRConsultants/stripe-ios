@@ -83,10 +83,10 @@ class STPEphemeralKeyManager: NSObject {
     }
   }
 
-  internal var ephemeralKey: STPEphemeralKey?
+  @objc internal var ephemeralKey: STPEphemeralKey?
   private var apiVersion: String?
   private var keyProvider: Any?
-  internal var lastEagerKeyRefresh: Date?
+  @objc internal var lastEagerKeyRefresh: Date?
   private var createKeyPromise: STPPromise<STPEphemeralKey>?
 
   deinit {

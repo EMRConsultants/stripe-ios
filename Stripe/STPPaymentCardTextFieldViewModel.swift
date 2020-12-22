@@ -35,7 +35,7 @@ class STPPaymentCardTextFieldViewModel: NSObject {
     }
   }
 
-  var rawExpiration: String? {
+  @objc var rawExpiration: String? {
     get {
       var array: [String] = []
       if expirationMonth != nil && !(expirationMonth == "") {

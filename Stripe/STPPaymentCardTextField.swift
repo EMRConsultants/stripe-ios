@@ -550,19 +550,19 @@ public class STPPaymentCardTextField: UIControl, UIKeyInput, STPFormTextFieldDel
     )
   }
 
-  internal lazy var brandImageView: UIImageView = UIImageView(
+  @objc internal lazy var brandImageView: UIImageView = UIImageView(
     image: STPPaymentCardTextField.brandImage(for: .unknown))
-  internal lazy var fieldsView: UIView = UIView()
-  internal lazy var numberField = STPFormTextField()
-  internal lazy var expirationField = STPFormTextField()
-  internal lazy var cvcField = STPFormTextField()
-  internal lazy var postalCodeField = STPFormTextField()
+  @objc internal lazy var fieldsView: UIView = UIView()
+  @objc internal lazy var numberField = STPFormTextField()
+  @objc internal lazy var expirationField = STPFormTextField()
+  @objc internal lazy var cvcField = STPFormTextField()
+  @objc internal lazy var postalCodeField = STPFormTextField()
 
-  private lazy var viewModel: STPPaymentCardTextFieldViewModel =
+  @objc private lazy var viewModel: STPPaymentCardTextFieldViewModel =
     STPPaymentCardTextFieldViewModel()
 
-  internal var internalCardParams = STPPaymentMethodCardParams()
-  internal var allFields: [STPFormTextField] = []
+  @objc internal var internalCardParams = STPPaymentMethodCardParams()
+  @objc internal var allFields: [STPFormTextField] = []
   private lazy var sizingField = STPFormTextField()
   private lazy var sizingLabel = UILabel()
   /*
@@ -574,7 +574,7 @@ public class STPPaymentCardTextField: UIControl, UIKeyInput, STPFormTextFieldDel
   /// This is a number-wrapped STPCardFieldType (or nil) that layout uses
   /// to determine how it should move/animate its subviews so that the chosen
   /// text field is fully visible.
-  internal var focusedTextFieldForLayout: NSNumber?
+  @objc internal var focusedTextFieldForLayout: NSNumber?
   /*
      Creating and measuring the size of attributed strings is expensive so
      cache the values here.
@@ -826,7 +826,7 @@ public class STPPaymentCardTextField: UIControl, UIKeyInput, STPFormTextFieldDel
     return (postalCodeEntryEnabled ? postalCodeField : cvcField)
   }
 
-  func currentFirstResponderField() -> STPFormTextField? {
+  @objc func currentFirstResponderField() -> STPFormTextField? {
     for textField in allFields {
       if textField.isFirstResponder {
         return textField
@@ -853,7 +853,7 @@ public class STPPaymentCardTextField: UIControl, UIKeyInput, STPFormTextFieldDel
 
   // MARK: public convenience methods
 
-  func valid() -> Bool {
+  @objc func valid() -> Bool {
     return isValid
   }
 
@@ -1741,7 +1741,7 @@ public class STPPaymentCardTextField: UIControl, UIKeyInput, STPFormTextFieldDel
     return false
   }
 
-  internal func brandImage(
+  @objc internal func brandImage(
     for fieldType: STPCardFieldType, validationState: STPCardValidationState
   ) -> UIImage? {
     switch fieldType {

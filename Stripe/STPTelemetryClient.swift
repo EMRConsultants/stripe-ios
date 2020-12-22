@@ -16,7 +16,7 @@ final class STPTelemetryClient: NSObject {
     params["muid"] = muid
   }
 
-  func paramsByAddingTelemetryFields(toParams params: [String: Any]) -> [String: Any] {
+  @objc func paramsByAddingTelemetryFields(toParams params: [String: Any]) -> [String: Any] {
     var mutableParams = params
     mutableParams["muid"] = muid
     return mutableParams
