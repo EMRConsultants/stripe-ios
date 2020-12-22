@@ -57,6 +57,7 @@ Pod::Spec.new do |s|
     'Stripe/STPPaymentMethodSEPA*.swift',
     'Stripe/STPPaymentMethodSofor*.swift',
     'Stripe/STPPaymentMethodiDEA*.swift',
+    'Stripe/STPRedirectContext.swift',
     'Stripe/STPCard.swift',
     'Stripe/STPCardParams.swift',
     'Stripe/STPAPIClient+PushProvisioning.swift',

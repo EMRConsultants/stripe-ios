@@ -179,7 +179,6 @@
 		31D4D68A2512EC6300809066 /* UIView+Stripe_FirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ABD6425117C9600CC59EF /* UIView+Stripe_FirstResponder.swift */; };
 		31D4D6962512EE0100809066 /* UIViewController+Stripe_ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ABDF325117C9E00CC59EF /* UIViewController+Stripe_ParentViewController.swift */; };
 		31D4D69E2512F68D00809066 /* STPStringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ABE1925117CA100CC59EF /* STPStringUtils.swift */; };
-		31F2E875252403AD004D4B5E /* STPRedirectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ABDBD25117C9B00CC59EF /* STPRedirectContext.swift */; };
 		31F2E8782524143F004D4B5E /* STPPaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317ABD6225117C9600CC59EF /* STPPaymentResult.swift */; };
 		3617A51420FE5BBB001A9E6A /* NSLocale+STPSwizzling.h in Headers */ = {isa = PBXBuildFile; fileRef = 3617A51220FE5BBB001A9E6A /* NSLocale+STPSwizzling.h */; };
 		3617A51520FE5BBB001A9E6A /* NSLocale+STPSwizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3617A51320FE5BBB001A9E6A /* NSLocale+STPSwizzling.m */; };
@@ -2172,7 +2171,6 @@
 				31D1A518252FAB8A00913BD5 /* STPBlocks.swift in Sources */,
 				3111C559252BDAA800207E32 /* NSArray+Stripe.swift in Sources */,
 				31D4D6962512EE0100809066 /* UIViewController+Stripe_ParentViewController.swift in Sources */,
-				31F2E875252403AD004D4B5E /* STPRedirectContext.swift in Sources */,
 				31D4D68A2512EC6300809066 /* UIView+Stripe_FirstResponder.swift in Sources */,
 				3176C2142519723B00300ADE /* STPPaymentCardTextField.swift in Sources */,
 				36DFC1F225153362003AC264 /* STPCardBINMetadata.swift in Sources */,
