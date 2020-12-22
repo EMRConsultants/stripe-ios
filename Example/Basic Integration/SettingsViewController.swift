@@ -282,7 +282,7 @@ class SettingsViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismiss as () -> Void))
     }
 
-    func dismiss() {
+    @objc func dismiss() {
         self.dismiss(animated: true, completion: nil)
     }
 

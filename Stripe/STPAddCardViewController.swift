@@ -98,7 +98,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   }
 
   private var _alwaysEnableDoneButton = false
-  var alwaysEnableDoneButton: Bool {
+  @objc var alwaysEnableDoneButton: Bool {
     get {
       _alwaysEnableDoneButton
     }
@@ -110,7 +110,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
   private var configuration: STPPaymentConfiguration?
-  var shippingAddress: STPAddress?
+  @objc var shippingAddress: STPAddress?
   private var hasUsedShippingAddress = false
   private weak var cardImageView: UIImageView?
   private var doneItem: UIBarButtonItem?
@@ -150,7 +150,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   var paymentCell: STPPaymentCardTextFieldCell?
 
   private var _loading = false
-  var loading: Bool {
+  @objc var loading: Bool {
     get {
       _loading
     }
@@ -792,7 +792,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
   ///   - addCardViewController: the view controller that successfully created a token
   ///   - paymentMethod:         the Payment Method that was created. - seealso: STPPaymentMethod
   ///   - completion:            call this callback when you're done sending the token to your backend
-  func addCardViewController(
+  @objc func addCardViewController(
     _ addCardViewController: STPAddCardViewController,
     didCreatePaymentMethod paymentMethod: STPPaymentMethod,
     completion: @escaping STPErrorBlock
