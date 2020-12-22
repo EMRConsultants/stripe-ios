@@ -13,7 +13,9 @@ enum STPFormTextFieldAutoFormattingBehavior: Int {
   case phoneNumbers
   case cardNumbers
   case expiration
+  #if canImport(Stripe3DS2)
   case bsbNumber
+  #endif
 }
 
 @objc protocol STPFormTextFieldDelegate: UITextFieldDelegate {
@@ -128,6 +130,7 @@ enum STPFormTextFieldAutoFormattingBehavior: Int {
           return NSAttributedString(
             string: phoneNumber, attributes: attributes as? [NSAttributedString.Key: Any])
         }
+#if canImport(Stripe3DS2)
       case .bsbNumber:
         weak var weakSelf = self
         textFormattingBlock = { inputString in
@@ -145,6 +148,7 @@ enum STPFormTextFieldAutoFormattingBehavior: Int {
           return NSAttributedString(
             string: bsbNumber ?? "", attributes: attributes as? [NSAttributedString.Key: Any])
         }
+#endif
       }
     }
   }
@@ -428,7 +432,11 @@ class STPTextFieldDelegateProxy: NSObject, UITextFieldDelegate {
     switch autoformattingBehavior {
     case .none:
       return string
-    case .cardNumbers, .phoneNumbers, .expiration, .bsbNumber:
+#if canImport(Stripe3DS2)
+    case .bsbNumber:
+      fallthrough
+#endif
+    case .cardNumbers, .phoneNumbers, .expiration:
       return STPCardValidator.sanitizedNumericString(for: string ?? "")
     }
   }

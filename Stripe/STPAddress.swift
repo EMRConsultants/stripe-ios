@@ -247,7 +247,9 @@ public class STPAddress: NSObject {
       containsFields = containsFields && (name?.count ?? 0) > 0
     }
     if requiredFields.contains(.emailAddress) {
+#if canImport(Stripe3DS2)
       containsFields = containsFields && STPEmailAddressValidator.stringIsValidEmailAddress(email)
+#endif
     }
     if requiredFields.contains(.phoneNumber) {
       containsFields =

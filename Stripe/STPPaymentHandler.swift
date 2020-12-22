@@ -771,6 +771,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
             ]))
       }
 
+#if canImport(Stripe3DS2)
     case .alipayHandleRedirect:
       if let alipayHandleRedirect = authenticationAction.alipayHandleRedirect {
         _handleRedirect(
@@ -798,7 +799,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
               "STPIntentAction": authenticationAction.description
             ]))
       }
-      
+#endif
     case .useStripeSDK:
       if let useStripeSDK = authenticationAction.useStripeSDK {
         switch useStripeSDK.type {
@@ -1002,6 +1003,7 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
     let pingMarlinIfNecessary:
       ((STPPaymentHandlerPaymentIntentActionParams, @escaping STPVoidBlock) -> Void) = {
         currentAction, completionBlock in
+#if canImport(Stripe3DS2)
         if let paymentMethod = currentAction.paymentIntent?.paymentMethod,
           paymentMethod.type == .alipay,
           let alipayHandleRedirect = currentAction.nextAction()?.alipayHandleRedirect,
@@ -1019,6 +1021,9 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
         } else {
           completionBlock()
         }
+#else
+        completionBlock()
+#endif
       }
 
     if let currentAction = self.currentAction as? STPPaymentHandlerPaymentIntentActionParams,
@@ -1217,9 +1222,11 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
   /// Currently only OXXO payment is voucher-based.
   /// If it's voucher-based, the paymentIntent status stays in requiresAction until the voucher is paid or expired.
   func _isPaymentIntentNextActionVoucherBased(nextAction: STPIntentAction?) -> Bool {
+#if canImport(Stripe3DS2)
     if let nextAction = nextAction {
       return nextAction.type == .OXXODisplayDetails
     }
+#endif
     return false
   }
 
@@ -1274,7 +1281,11 @@ public class STPPaymentHandler: NSObject, SFSafariViewControllerDelegate, STPURL
       threeDSSourceID = nextAction.redirectToURL?.threeDSSourceID
     case .useStripeSDK:
       threeDSSourceID = nextAction.useStripeSDK?.threeDSSourceID
-    case .OXXODisplayDetails, .alipayHandleRedirect, .unknown:
+#if canImport(Stripe3DS2)
+    case .OXXODisplayDetails, .alipayHandleRedirect:
+      break
+#endif
+    case .unknown:
       break
     @unknown default:
       fatalError()

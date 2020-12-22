@@ -204,7 +204,7 @@ public class STPAPIClient: NSObject {
     let data = try? JSONSerialization.data(withJSONObject: details, options: [])
     return String(data: data ?? Data(), encoding: .utf8) ?? ""
   }
-
+  #if canImport(Stripe3DS2)
   /// A helper method that returns the Authorization header to use for API requests. If ephemeralKey is nil, uses self.publishableKey instead.
   @objc(authorizationHeaderUsingEphemeralKey:)
   func authorizationHeader(using ephemeralKey: STPEphemeralKey? = nil) -> [String: String] {
@@ -216,6 +216,14 @@ public class STPAPIClient: NSObject {
       "Authorization": "Bearer " + authorizationBearer
     ]
   }
+  #else
+  func authorizationHeader() -> [String: String] {
+    let authorizationBearer = publishableKey ?? ""
+    return [
+      "Authorization": "Bearer " + authorizationBearer
+    ]
+  }
+  #endif
 }
 
 // MARK: Bank Accounts
@@ -281,6 +289,7 @@ extension STPAPIClient {
   }
 }
 
+#if canImport(Stripe3DS2)
 // MARK: Connect Accounts
 
 /// STPAPIClient extensions for working with Connect Accounts
@@ -304,7 +313,6 @@ extension STPAPIClient {
 }
 
 // MARK: Upload
-#if canImport(Stripe3DS2)
 /// STPAPIClient extensions to upload files.
 extension STPAPIClient {
   func data(
@@ -811,6 +819,7 @@ extension STPAPIClient {
 
   }
 
+  #if canImport(Stripe3DS2)
   // MARK: FPX
   /// Retrieves the online status of the FPX banks from the Stripe API.
   /// - Parameter completion:  The callback to run with the returned FPX bank list, or an error.
@@ -827,6 +836,7 @@ extension STPAPIClient {
       completion(statusResponse, error)
     }
   }
+  #endif
 }
 
 #if canImport(Stripe3DS2)
