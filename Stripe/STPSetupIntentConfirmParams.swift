@@ -136,9 +136,9 @@ public class STPSetupIntentConfirmParams: NSObject, NSCopying, STPFormEncodable 
       NSStringFromSelector(#selector(getter:useStripeSDK)): "use_stripe_sdk",
     ]
 #if !STRIPE_MIN_SDK
-    props = props + [
+    props.merge([
       NSStringFromSelector(#selector(getter:mandateData)): "mandate_data",
-    ]
+    ]) { (_, new) in new }
 #endif
     return props
   }

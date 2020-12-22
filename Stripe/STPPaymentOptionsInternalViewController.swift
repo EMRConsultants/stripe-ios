@@ -237,12 +237,12 @@ class STPPaymentOptionsInternalViewController: STPCoreTableViewController, UITab
     delegate?.internalViewControllerDidCancel()
   }
 
-  func handleEditButtonTapped(_ sender: Any?) {
+  @objc func handleEditButtonTapped(_ sender: Any?) {
     tableView?.setEditing(true, animated: true)
     reloadRightBarButtonItem(withTableViewIsEditing: tableView?.isEditing ?? false, animated: true)
   }
 
-  func handleDoneButtonTapped(_ sender: Any?) {
+  @objc func handleDoneButtonTapped(_ sender: Any?) {
     _endTableViewEditing()
     reloadRightBarButtonItem(withTableViewIsEditing: tableView?.isEditing ?? false, animated: true)
   }

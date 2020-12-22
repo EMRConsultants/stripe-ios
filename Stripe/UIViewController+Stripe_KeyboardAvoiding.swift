@@ -74,7 +74,7 @@ class STPKeyboardDetectingViewController: UIViewController {
     self.view = view
   }
 
-  func textFieldWillBeginEditing(_ notification: Notification) {
+  @objc func textFieldWillBeginEditing(_ notification: Notification) {
     guard let textField = notification.object as? UITextField, let parentView = parent?.view, textField.isDescendant(of: parentView) else {
       return
     }
@@ -87,7 +87,7 @@ class STPKeyboardDetectingViewController: UIViewController {
     }
   }
 
-  func keyboardWillChangeFrame(_ notification: Notification) {
+  @objc func keyboardWillChangeFrame(_ notification: Notification) {
     // As of iOS 8, this all takes place inside the necessary animation block
     // https://twitter.com/SmileyKeith/status/684100833823174656
     guard

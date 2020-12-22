@@ -13,8 +13,9 @@ Pod::Spec.new do |s|
   s.swift_version		               = '5.0'
   s.default_subspec = 'Full'
   s.subspec 'Full' do |fs|
-    fs.resource_bundles           = { 'Stripe' => ['Stripe/Resources/**/*.{lproj,png}'] }
+    fs.resource_bundles           = { 'Stripe' => ['Stripe/Resources/Images/Stripe.xcassets', 'Stripe/Resources/**/*.{lproj,json,png}'] }
     fs.source_files                   = 'Stripe/*.swift'
+    fs.vendored_frameworks            = 'InternalFrameworks/static/Stripe3DS2.xcframework'
   end
   s.subspec 'Min' do |ms|
     ms.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DSTRIPE_MIN_SDK' }

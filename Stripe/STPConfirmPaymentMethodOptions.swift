@@ -48,9 +48,9 @@ extension STPConfirmPaymentMethodOptions: STPFormEncodable {
       NSStringFromSelector(#selector(getter:cardOptions)): "card",
     ]
 #if !STRIPE_MIN_SDK
-    props = props + [
+    props.merge([
       NSStringFromSelector(#selector(getter:alipayOptions)): "alipay",
-    ]
+    ]) { (_, new) in new }
 #endif
     return props
   }

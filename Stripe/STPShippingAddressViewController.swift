@@ -313,7 +313,7 @@ public class STPShippingAddressViewController : STPCoreTableViewController
     delegate?.shippingAddressViewControllerDidCancel(self)
   }
 
-  func next(_ sender: Any?) {
+  @objc func next(_ sender: Any?) {
     let address = addressViewModel.address
     switch configuration?.shippingType {
     case .shipping:
@@ -390,7 +390,7 @@ public class STPShippingAddressViewController : STPCoreTableViewController
     return size?.height ?? 0.0
   }
   
-  func useBillingAddress(_ sender: UIButton) {
+  @objc func useBillingAddress(_ sender: UIButton) {
     guard let billingAddress = billingAddress else {
       return
     }

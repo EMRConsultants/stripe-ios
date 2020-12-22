@@ -467,7 +467,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
       NSStringFromSelector(#selector(getter:metadata)): "metadata",
     ]
 #if !STRIPE_MIN_SDK
-    mapping = mapping + [
+    mapping.merge([
       NSStringFromSelector(#selector(getter:iDEAL)): "ideal",
       NSStringFromSelector(#selector(getter:eps)): "eps",
       NSStringFromSelector(#selector(getter:fpx)): "fpx",
@@ -482,7 +482,7 @@ public class STPPaymentMethodParams: NSObject, STPFormEncodable, STPPaymentOptio
       NSStringFromSelector(#selector(getter:oxxo)): "oxxo",
       NSStringFromSelector(#selector(getter:sofort)): "sofort",
       NSStringFromSelector(#selector(getter:upi)): "upi",
-    ]
+    ]) { (_, new) in new }
 #endif
     return mapping
   }

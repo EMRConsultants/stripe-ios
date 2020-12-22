@@ -248,10 +248,10 @@ extension STPPaymentIntentParams: STPFormEncodable {
       NSStringFromSelector(#selector(getter:shipping)): "shipping",
     ]
 #if !STRIPE_MIN_SDK
-    props = props + [
+    props.merge([
       NSStringFromSelector(#selector(getter:sourceParams)): "source_data",
       NSStringFromSelector(#selector(getter:mandateData)): "mandate_data",
-    ]
+    ]) { (_, new) in new }
 #endif
     return props
   }

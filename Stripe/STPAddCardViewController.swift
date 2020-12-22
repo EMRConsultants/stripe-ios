@@ -343,7 +343,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
 
-  func scanCard() {
+  @objc func scanCard() {
     if #available(iOS 13.0, *) {
       view.endEditing(true)
       isScanning = true
@@ -351,7 +351,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     }
   }
 
-  func endEditing() {
+  @objc func endEditing() {
     view.endEditing(false)
   }
 
@@ -407,7 +407,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     delegate?.addCardViewControllerDidCancel(self)
   }
 
-  func nextPressed(_ sender: Any?) {
+  @objc func nextPressed(_ sender: Any?) {
     loading = true
     guard let cardParams = paymentCell?.paymentField?.cardParams else {
       return
@@ -488,7 +488,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     updateDoneButton()
   }
 
-  func paymentFieldNextTapped() {
+  @objc func paymentFieldNextTapped() {
     (addressViewModel.addressCells.stp_boundSafeObject(at: 0) as? UIView)?
       .becomeFirstResponder()
   }
@@ -690,7 +690,7 @@ public class STPAddCardViewController: STPCoreTableViewController, STPAddressVie
     return UIView()
   }
 
-  func useShippingAddress(_ sender: UIButton) {
+  @objc func useShippingAddress(_ sender: UIButton) {
     tableView?.beginUpdates()
     addressViewModel.address = shippingAddress ?? STPAddress()
     hasUsedShippingAddress = true

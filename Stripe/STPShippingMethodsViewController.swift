@@ -84,7 +84,7 @@ class STPShippingMethodsViewController: STPCoreTableViewController, UITableViewD
     }
   }
 
-  func done(_ sender: Any?) {
+  @objc func done(_ sender: Any?) {
     if let selectedShippingMethod = selectedShippingMethod {
       delegate?.shippingMethodsViewController(self, didFinishWith: selectedShippingMethod)
     }

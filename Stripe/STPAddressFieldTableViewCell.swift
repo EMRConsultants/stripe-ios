@@ -374,7 +374,7 @@ class STPAddressFieldTableViewCell: UITableViewCell, UITextFieldDelegate, UIPick
     return self.textField.becomeFirstResponder()
   }
 
-  func nextTapped(sender: NSObject) {
+  @objc func nextTapped(sender: NSObject) {
     delegate?.addressFieldTableViewCellDidReturn(self)
   }
 
@@ -402,7 +402,7 @@ class STPAddressFieldTableViewCell: UITableViewCell, UITextFieldDelegate, UIPick
     return 0
   }
 
-  func textFieldTextDidChange(textField: STPValidatedTextField) {
+  @objc func textFieldTextDidChange(textField: STPValidatedTextField) {
     if self.type != .country {
       _contents = textField.text
       if textField.isFirstResponder {
