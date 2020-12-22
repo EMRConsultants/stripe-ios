@@ -24,7 +24,7 @@ public enum STPTokenType: Int {
 }
 
 /// A token returned from submitting payment details to the Stripe API. You should not have to instantiate one of these directly.
-public class STPToken: NSObject, STPAPIResponseDecodable, STPSourceProtocol {
+public class STPToken: NSObject, STPAPIResponseDecodable {
   /// You cannot directly instantiate an `STPToken`. You should only use one that has been returned from an `STPAPIClient` callback.
   override init() {
   }
@@ -38,9 +38,11 @@ public class STPToken: NSObject, STPAPIResponseDecodable, STPSourceProtocol {
   @objc public private(set) var type: STPTokenType = .account
   /// The credit card details that were used to create the token. Will only be set if the token was created via a credit card or Apple Pay, otherwise it will be
   /// nil.
-  @objc public private(set) var card: STPCard?
+  @objc public private(set) var card: STPPaymentMethodCard?
+#if canImport(Stripe3DS2)
   /// The bank account details that were used to create the token. Will only be set if the token was created with a bank account, otherwise it will be nil.
   @objc public private(set) var bankAccount: STPBankAccount?
+#endif
   /// When the token was created.
   @objc public private(set) var created: Date?
   @objc public private(set) var allResponseFields: [AnyHashable: Any] = [:]
@@ -83,9 +85,11 @@ public class STPToken: NSObject, STPAPIResponseDecodable, STPSourceProtocol {
       return false
     }
 
+#if canImport(Stripe3DS2)
     if (bankAccount != nil || object.bankAccount != nil) && (!(bankAccount == object.bankAccount)) {
       return false
     }
+#endif
 
     if let created1 = object.created {
       return livemode == object.livemode && type == object.type && (tokenId == object.tokenId)
@@ -119,11 +123,13 @@ public class STPToken: NSObject, STPAPIResponseDecodable, STPSourceProtocol {
     token.type = self._tokenType(for: rawType)
 
     let rawCard = dict.stp_dictionary(forKey: "card")
-    token.card = STPCard.decodedObject(fromAPIResponse: rawCard)
+    token.card = STPPaymentMethodCard.decodedObject(fromAPIResponse: rawCard)
 
+#if canImport(Stripe3DS2)
     let rawBankAccount = dict.stp_dictionary(forKey: "bank_account")
     token.bankAccount = STPBankAccount.decodedObject(fromAPIResponse: rawBankAccount)
-
+#endif
+    
     token.allResponseFields = dict as! [AnyHashable: Any]
 
     return token as? Self

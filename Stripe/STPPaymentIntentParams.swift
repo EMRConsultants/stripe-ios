@@ -47,11 +47,13 @@ public class STPPaymentIntentParams: NSObject {
   /// @note alternative to `paymentMethodParams`
   @objc public var paymentMethodId: String?
 
+#if canImport(Stripe3DS2)
   /// Provide a supported `STPSourceParams` object into here, and Stripe will create a Source
   /// during PaymentIntent confirmation.
   /// @note alternative to `sourceId`
   @objc public var sourceParams: STPSourceParams?
-
+#endif
+  
   /// Provide an already created Source's id, and it will be used to confirm the PaymentIntent.
   /// @note alternative to `sourceParams`
   @objc public var sourceId: String?
@@ -170,7 +172,7 @@ public class STPPaymentIntentParams: NSObject {
 
   /// :nodoc:
   @objc public override var description: String {
-    let props: [String] = [
+    var props: [String] = [
       // Object
       String(format: "%@: %p", NSStringFromClass(STPPaymentIntentParams.self), self),
       // Identifier
@@ -185,7 +187,6 @@ public class STPPaymentIntentParams: NSObject {
       "useStripeSDK = \(String(describing: useStripeSDK?.boolValue))",
       // Source
       "sourceId = \(String(describing: sourceId))",
-      "sourceParams = \(String(describing: sourceParams))",
       // PaymentMethod
       "paymentMethodId = \(String(describing: paymentMethodId))",
       "paymentMethodParams = \(String(describing: paymentMethodParams))",
@@ -196,6 +197,12 @@ public class STPPaymentIntentParams: NSObject {
       // Additional params set by app
       "additionalAPIParameters = \(additionalAPIParameters)",
     ]
+
+    #if canImport(Stripe3DS2)
+    props = props + [
+          "sourceParams = \(String(describing: sourceParams))",
+    ]
+    #endif
 
     return "<\(props.joined(separator: "; "))>"
   }
@@ -227,14 +234,13 @@ extension STPPaymentIntentParams: STPFormEncodable {
 
   @objc
   public class func propertyNamesToFormFieldNamesMapping() -> [String: String] {
-    return [
+    var props = [
       NSStringFromSelector(#selector(getter:clientSecret)): "client_secret",
       NSStringFromSelector(#selector(getter:paymentMethodParams)): "payment_method_data",
       NSStringFromSelector(#selector(getter:paymentMethodId)): "payment_method",
       NSStringFromSelector(#selector(getter:setupFutureUsageRawString)): "setup_future_usage",
-      NSStringFromSelector(#selector(getter:sourceParams)): "source_data",
-      NSStringFromSelector(#selector(getter:sourceId)): "source",
       NSStringFromSelector(#selector(getter:receiptEmail)): "receipt_email",
+      NSStringFromSelector(#selector(getter:sourceId)): "source",
       NSStringFromSelector(#selector(getter:savePaymentMethod)): "save_payment_method",
       NSStringFromSelector(#selector(getter:returnURL)): "return_url",
       NSStringFromSelector(#selector(getter:useStripeSDK)): "use_stripe_sdk",
@@ -242,6 +248,12 @@ extension STPPaymentIntentParams: STPFormEncodable {
       NSStringFromSelector(#selector(getter:paymentMethodOptions)): "payment_method_options",
       NSStringFromSelector(#selector(getter:shipping)): "shipping",
     ]
+#if canImport(Stripe3DS2)
+    props = props + [
+      NSStringFromSelector(#selector(getter:sourceParams)): "source_data",
+    ]
+#endif
+    return props
   }
 }
 
@@ -255,7 +267,9 @@ extension STPPaymentIntentParams: NSCopying {
 
     copy.paymentMethodParams = paymentMethodParams
     copy.paymentMethodId = paymentMethodId
+#if canImport(Stripe3DS2)
     copy.sourceParams = sourceParams
+#endif
     copy.sourceId = sourceId
     copy.receiptEmail = receiptEmail
     copy.savePaymentMethod = savePaymentMethod

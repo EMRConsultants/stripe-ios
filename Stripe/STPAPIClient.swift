@@ -219,7 +219,7 @@ public class STPAPIClient: NSObject {
 }
 
 // MARK: Bank Accounts
-
+#if canImport(Stripe3DS2)
 /// STPAPIClient extensions to create Stripe tokens from bank accounts.
 extension STPAPIClient {
   /// Converts an STPBankAccount object into a Stripe token using the Stripe API.
@@ -237,7 +237,7 @@ extension STPAPIClient {
     STPTelemetryClient.shared.sendTelemetryData()
   }
 }
-
+#endif
 // MARK: Personally Identifiable Information
 
 /// STPAPIClient extensions to create Stripe tokens from a personal identification number.
@@ -304,7 +304,7 @@ extension STPAPIClient {
 }
 
 // MARK: Upload
-
+#if canImport(Stripe3DS2)
 /// STPAPIClient extensions to upload files.
 extension STPAPIClient {
   func data(
@@ -558,6 +558,8 @@ extension STPAPIClient {
   }
 }
 
+#endif
+
 // MARK: Payment Intents
 
 /// STPAPIClient extensions for working with PaymentIntent objects.
@@ -650,9 +652,13 @@ extension STPAPIClient {
       "`paymentIntentParams.clientSecret` format does not match expected client secret formatting.")
 
     let identifier = paymentIntentParams.stripeId ?? ""
+    var sourceType : String? = nil
+    #if canImport(Stripe3DS2)
+    sourceType = paymentIntentParams.sourceParams?.rawTypeString
+    #endif
     let type =
       paymentIntentParams.paymentMethodParams?.rawTypeString
-      ?? paymentIntentParams.sourceParams?.rawTypeString
+      ?? sourceType
     STPAnalyticsClient.sharedClient.logPaymentIntentConfirmationAttempt(
       with: configuration,
       paymentMethodType: type)
@@ -823,6 +829,7 @@ extension STPAPIClient {
   }
 }
 
+#if canImport(Stripe3DS2)
 // MARK: - Customers
 extension STPAPIClient {
   /// Retrieve a customer
@@ -914,6 +921,7 @@ extension STPAPIClient {
     }
   }
 }
+#endif
 
 #if canImport(Stripe3DS2)
 // MARK: - ThreeDS2

@@ -56,6 +56,7 @@ public typealias STPJSONResponseCompletionBlock = ([AnyHashable: Any]?, Error?) 
 ///   - token: The Stripe token from the response. Will be nil if an error occurs. - seealso: STPToken
 ///   - error: The error returned from the response, or nil if none occurs. - seealso: StripeError.h for possible values.
 public typealias STPTokenCompletionBlock = (STPToken?, Error?) -> Void
+#if canImport(Stripe3DS2)
 /// A callback to be run with a source response from the Stripe API.
 /// - Parameters:
 ///   - source: The Stripe source from the response. Will be nil if an error occurs. - seealso: STPSource
@@ -66,6 +67,7 @@ public typealias STPSourceCompletionBlock = (STPSource?, Error?) -> Void
 ///   - source: The Stripe source from the response. Will be nil if an error occurs. - seealso: STPSourceProtocol
 ///   - error: The error returned from the response, or nil if none occurs. - seealso: StripeError.h for possible values.
 public typealias STPSourceProtocolCompletionBlock = (STPSourceProtocol?, Error?) -> Void
+#endif
 /// A callback to be run with a PaymentIntent response from the Stripe API.
 /// - Parameters:
 ///   - paymentIntent: The Stripe PaymentIntent from the response. Will be nil if an error occurs. - seealso: STPPaymentIntent
@@ -101,11 +103,13 @@ public typealias STPShippingMethodsCompletionBlock = (
 ///   - file: The Stripe file from the response. Will be nil if an error occurs. - seealso: STPFile
 ///   - error: The error returned from the response, or nil if none occurs. - seealso: StripeError.h for possible values.
 public typealias STPFileCompletionBlock = (STPFile?, Error?) -> Void
+#if canImport(Stripe3DS2)
 /// A callback to be run with a customer response from the Stripe API.
 /// - Parameters:
 ///   - customer:     The Stripe customer from the response, or nil if an error occurred. - seealso: STPCustomer
 ///   - error:        The error returned from the response, or nil if none occurs.
 public typealias STPCustomerCompletionBlock = (STPCustomer?, Error?) -> Void
+#endif
 /// An enum representing the success and error states of PIN management
 @objc public enum STPPinStatus: Int {
   /// The verification object was already redeemed
